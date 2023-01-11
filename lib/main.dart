@@ -5,9 +5,7 @@ void main() {
       MaterialApp(
         title: 'adventureofalifetime',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(),
         home: const HomePage(),
       )
   );
