@@ -1,36 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({
+    required this.child,
+    super.key,
+  });
+
+  final Widget child;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  final _routes = [
+    '/home',
+    '/cart',
+  ];
+
+  void _onItemTapped(int index) {
+    context.go(_routes[index]);
+    setState(() => _currentIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Screen')),
+      body: widget.child,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () => context.go('/details'),
-          child: const Text('Go to the Details screen'),
+          onPressed: () => context.push('/item'),
+          child: const Text('Go to the Item Screen'),
         ),
       ),
     );
   }
 }
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Details Screen')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => context.go('/'),
-          child: const Text('Go back to the Home screen'),
-        ),
-      ),
+    return const Scaffold(
+      body: Center(child: Text('Cart Screen')),
     );
   }
 }
