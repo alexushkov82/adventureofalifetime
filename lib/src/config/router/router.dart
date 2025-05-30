@@ -1,7 +1,10 @@
-import 'package:adventureofalifetime/item_page.dart';
 import 'package:go_router/go_router.dart';
 
-import 'home_page.dart';
+import '../../features/products/presentation/pages/home_page.dart';
+import '../../features/products/presentation/pages/item_page.dart';
+import '../../features/products/presentation/widgets/cart_widget.dart';
+import '../../features/products/presentation/widgets/home_widget.dart';
+import 'routes.dart';
 
 final router = GoRouter(
   initialLocation: '/home',
@@ -12,21 +15,21 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
-          path: '/home',
+          path: AppRoutes.home,
           pageBuilder: (context, state) => const NoTransitionPage(
-            child: HomeScreen(),
+            child: HomeWidget(),
           ),
         ),
         GoRoute(
-          path: '/cart',
+          path: AppRoutes.cart,
           pageBuilder: (context, state) => const NoTransitionPage(
-            child: CartScreen(),
+            child: CartWidget(),
           ),
         ),
       ],
     ),
     GoRoute(
-      path: '/item',
+      path: AppRoutes.item,
       builder: (context, state) => ItemPage(),
     ),
   ],

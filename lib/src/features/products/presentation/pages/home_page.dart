@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../config/router/routes.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({
     required this.child,
@@ -17,8 +19,8 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final _routes = [
-    '/home',
-    '/cart',
+    AppRoutes.home,
+    AppRoutes.cart,
   ];
 
   void _onItemTapped(int index) {
@@ -38,33 +40,6 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
         ],
       ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => context.push('/item'),
-          child: const Text('Go to the Item Screen'),
-        ),
-      ),
-    );
-  }
-}
-
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Cart Screen')),
     );
   }
 }

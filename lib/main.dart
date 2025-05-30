@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'router.dart';
+import 'src/config/router/router.dart';
+import 'src/di/di.dart';
 
 void main() {
+  setupDependencies();
   runApp(const App());
 }
 
