@@ -1,26 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/products_repository.dart';
-import '../../../domain/models/product.dart';
+import '../../../domain/models/products.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  final ProductsRepository repository;
+  final ProductsRepository productsRepository;
 
-  ProductsBloc(this.repository) : super(ProductsLoading());
+  ProductsBloc(this.productsRepository) : super(ProductsLoading()) {
+    on<LoadProducts>(_onLoadProducts);
+    add(LoadProducts());
+  }
 
-  @override
-  Stream<ProductsState> mapEventToState(ProductsEvent event) async* {
-    if (event is LoadProducts) {
-      yield ProductsLoading();
-      try {
-        final products = await repository.fetchProducts(10);
-        yield ProductsLoaded(products);
-      } catch (e) {
-        yield ProductsError(e.toString());
-      }
+  Future<void> _onLoadProducts(event, emit) async {
+    emit(ProductsLoading());
+    try {
+      final products = await productsRepository.fetchProducts(10);
+      emit(ProductsLoaded(products));
+    } catch (e) {
+      print(e.toString());
     }
   }
 }

@@ -16,21 +16,20 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: AppRoutes.home,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: HomeWidget(),
-          ),
+          pageBuilder: (context, state) => const NoTransitionPage(child: HomeWidget()),
         ),
         GoRoute(
           path: AppRoutes.cart,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: CartWidget(),
-          ),
+          pageBuilder: (context, state) => const NoTransitionPage(child: CartWidget()),
         ),
       ],
     ),
     GoRoute(
       path: AppRoutes.item,
-      builder: (context, state) => ItemPage(),
+      builder: (context, state) {
+        final productId = state.pathParameters['productId']!;
+        return ItemPage(productId: productId);
+      },
     ),
   ],
 );

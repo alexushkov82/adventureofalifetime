@@ -5,13 +5,7 @@ abstract class ProductsState {}
 class ProductsLoading extends ProductsState {}
 
 class ProductsLoaded extends ProductsState {
-  final List<Product> products;
+  final Products products;
 
   ProductsLoaded(this.products);
-}
-
-class ProductsError extends ProductsState {
-  final String message;
-
-  ProductsError(this.message);
 }

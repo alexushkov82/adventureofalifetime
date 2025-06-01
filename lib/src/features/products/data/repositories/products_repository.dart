@@ -1,5 +1,5 @@
-import '../../domain/models/product.dart';
+import '../../domain/models/products.dart';
 
 abstract class ProductsRepository {
-  Future<List<Product>> fetchProducts(int limit);
+  Future<Products> fetchProducts(int limit);
 }

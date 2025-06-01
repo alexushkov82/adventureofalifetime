@@ -1,18 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../config/router/routes.dart';
 import '../../../../di/di.dart';
-import '../../data/repositories/products_repository.dart';
 import '../bloc/products_bloc/products_bloc.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
 
-  ProductsRepository get productsRepository => getIt<ProductsRepository>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +15,30 @@ class HomeWidget extends StatelessWidget {
       create: (context) => getIt<ProductsBloc>(),
       child: Scaffold(
         appBar: AppBar(title: const Text('Products')),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => context.push(AppRoutes.item),
-                child: const Text('Go to the Item Screen'),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final products = await productsRepository.fetchProducts(10);
-                  inspect(products);
+        body: BlocBuilder<ProductsBloc, ProductsState>(
+          builder: (context, state) {
+            if (state is ProductsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is ProductsLoaded) {
+              return ListView.builder(
+                itemCount: state.products.length,
+                itemBuilder: (context, index) {
+                  final product = state.products[index];
+                  return GestureDetector(
+                    onTap: () {
+                      context.push(AppRoutes.item.replaceFirst(':productId', product.id));
+                    },
+                    child: ListTile(
+                      title: Text(product.title),
+                      subtitle: Text(product.description ?? ''),
+                    ),
+                  );
                 },
-                child: const Text('Fetch Products'),
-              ),
-            ],
-          ),
+              );
+            } else {
+              return const Center(child: Text('No products available.'));
+            }
+          },
         ),
       ),
     );
