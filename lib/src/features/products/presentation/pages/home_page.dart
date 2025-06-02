@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../config/router/routes.dart';
+import '../../../../di/di.dart';
+import '../../../cart/presentation/bloc/cart_bloc/cart_bloc.dart';
+import '../bloc/products_bloc/products_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -30,15 +34,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ProductsBloc>(
+          create: (context) => getIt<ProductsBloc>(),
+        ),
+        BlocProvider<CartBloc>(
+          create: (context) => getIt<CartBloc>(),
+        ),
+      ],
+      child: Scaffold(
+        body: widget.child,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          ],
+        ),
       ),
     );
   }

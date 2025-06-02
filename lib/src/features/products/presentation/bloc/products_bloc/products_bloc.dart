@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repositories/products_repository.dart';
@@ -12,6 +13,10 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc(this.productsRepository) : super(ProductsLoading()) {
     on<LoadProducts>(_onLoadProducts);
     add(LoadProducts());
+  }
+
+  factory ProductsBloc.of(BuildContext context) {
+    return BlocProvider.of<ProductsBloc>(context);
   }
 
   Future<void> _onLoadProducts(event, emit) async {

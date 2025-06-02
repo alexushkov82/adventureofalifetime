@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../../di/di.dart';
 import '../bloc/products_bloc/products_bloc.dart';
 
-class ItemPage extends StatelessWidget {
+class ProductPage extends StatelessWidget {
   final String productId;
 
-  const ItemPage({required this.productId, super.key});
+  const ProductPage({required this.productId, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final state = getIt<ProductsBloc>().state as ProductsLoaded;
-    final product = state.products.getById(productId);
+    final productsState = getIt<ProductsBloc>().state as ProductsLoaded;
+    final product = productsState.products.getById(productId);
 
     return Scaffold(
       appBar: AppBar(title: Text(product?.title ?? 'Product')),

@@ -5,7 +5,7 @@ import '../../domain/models/products.dart';
 import '../services/api_service.dart';
 import 'products_repository.dart';
 
-class ProductsRepositoryImpl implements ProductsRepository {
+class ProductsRepositoryImpl /*implements*/ extends ProductsRepository {
   final ApiService apiService;
 
   ProductsRepositoryImpl(this.apiService);

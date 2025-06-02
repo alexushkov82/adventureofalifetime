@@ -1,3 +1,5 @@
+import 'package:adventureofalifetime/src/core/extensions.dart';
+
 import 'product.dart';
 
 class Products extends Iterable<Product> {
@@ -23,7 +25,7 @@ class Products extends Iterable<Product> {
   }
 
   Product? getById(String id) {
-    return _products.firstWhere((product) => product.id == id);
+    return _products.firstWhereOrNull((product) => product.id == id);
   }
 
   @override

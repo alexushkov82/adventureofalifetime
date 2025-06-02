@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/products/presentation/pages/home_page.dart';
-import '../../features/products/presentation/pages/item_page.dart';
-import '../../features/products/presentation/widgets/cart_widget.dart';
+import '../../features/products/presentation/pages/product_page.dart';
+import '../../features/cart/presentation/widgets/cart_widget.dart';
 import '../../features/products/presentation/widgets/home_widget.dart';
 import 'routes.dart';
 
@@ -28,7 +28,7 @@ final router = GoRouter(
       path: AppRoutes.item,
       builder: (context, state) {
         final productId = state.pathParameters['productId']!;
-        return ItemPage(productId: productId);
+        return ProductPage(productId: productId);
       },
     ),
   ],
