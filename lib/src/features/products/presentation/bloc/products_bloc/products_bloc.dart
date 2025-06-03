@@ -22,7 +22,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   Future<void> _onLoadProducts(event, emit) async {
     emit(ProductsLoading());
     try {
-      final products = await productsRepository.fetchProducts(10);
+      final products = await productsRepository.fetchProducts();
       emit(ProductsLoaded(products));
     } catch (e) {
       print(e.toString());

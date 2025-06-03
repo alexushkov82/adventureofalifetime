@@ -1,6 +1,7 @@
 abstract class CartRepository {
-  Future<void> saveProduct(String key, String value);
+  Future<void> saveProduct(String key, int value);
   String? getProduct(String key);
   Future<void> deleteProduct(String key);
-  List<String> getAllProducts();
+  Map<String, int> getAllProducts();
+  Future<void> deleteAllProducts();
 }

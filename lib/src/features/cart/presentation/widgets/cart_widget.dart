@@ -29,25 +29,27 @@ class CartWidget extends StatelessWidget {
                     padding: EdgeInsets.all(5),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Image.network(product?.image ?? '', fit: BoxFit.fitHeight),
-                        ),
+                        Image.network(product?.image ?? '', height: 100, width: 100),
                         SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product?.title ?? '',
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              '\$${product?.price}',
-                              style: TextStyle(fontSize: 20, color: Colors.green),
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product?.title ?? '',
+                                textAlign: TextAlign.left,
+                                softWrap: true,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                '\$${product?.price}',
+                                style: TextStyle(fontSize: 20, color: Colors.green),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(width: 10),
                         Row(

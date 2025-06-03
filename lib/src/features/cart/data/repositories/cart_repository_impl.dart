@@ -7,7 +7,7 @@ class CartRepositoryImpl implements CartRepository {
   CartRepositoryImpl(this._hiveService);
 
   @override
-  Future<void> saveProduct(String key, String value) async {
+  Future<void> saveProduct(String key, int value) async {
     await _hiveService.cartBox.put(key, value);
   }
 
@@ -22,7 +22,17 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  List<String> getAllProducts() {
-    return _hiveService.cartBox.keys.map((key) => _hiveService.cartBox.get(key)).toList().cast<String>();
+  Map<String, int> getAllProducts() {
+    final Map<String, int> productsInCart = {};
+    for (var key in _hiveService.cartBox.keys) {
+      final value = _hiveService.cartBox.get(key).toString();
+      productsInCart[key] = int.parse(value);
+    }
+    return productsInCart;
+  }
+
+  @override
+  Future<void> deleteAllProducts() async {
+    await _hiveService.cartBox.clear();
   }
 }
